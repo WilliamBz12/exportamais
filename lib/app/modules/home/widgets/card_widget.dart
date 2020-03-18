@@ -2,6 +2,8 @@ import 'package:exportamais/app/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../../../shared/themes/app_colors.dart';
+
 class CardWidget extends StatelessWidget {
   final String title, description;
   final double progress;
@@ -18,8 +20,14 @@ class CardWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(4),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 25,
+            offset: Offset(10, 10),
+            color: Color.fromRGBO(34, 38, 36, 0.04),
+          ),
+        ],
       ),
-      margin: EdgeInsets.symmetric(vertical: 15),
       padding: EdgeInsets.symmetric(
         horizontal: 20,
         vertical: 15,

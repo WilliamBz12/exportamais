@@ -1,11 +1,11 @@
 import 'dart:ui';
 
-import 'package:exportamais/app/modules/home/widgets/card_widget.dart';
-import 'package:exportamais/app/shared/themes/app_colors.dart';
+import 'package:exportamais/app/modules/home/widgets/timeline_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:timeline_list/timeline.dart';
-import 'package:timeline_list/timeline_model.dart';
+
+import '../../shared/themes/app_colors.dart';
+import 'widgets/card_widget.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -16,78 +16,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<TimelineModel> items = [
-    TimelineModel(
-      CardWidget(
-        title: "O Exportador iniciante",
-        description: "Antes de exportar os seus produtos, "
-            "você deve conhecer o mercado onde deseja atuar.",
-        progress: 80,
-      ),
-      iconBackground: Colors.redAccent,
-      icon: Icon(Icons.blur_circular),
-    ),
-    TimelineModel(
-      CardWidget(
-        title: "O Exportador iniciante",
-        description: "Antes de exportar os seus produtos, "
-            "você deve conhecer o mercado onde deseja atuar.",
-        progress: 0,
-      ),
-      iconBackground: AppColors.blue,
-      icon: Icon(Icons.blur_circular),
-    ),
-    TimelineModel(
-      CardWidget(
-        title: "O Exportador iniciante",
-        description: "Antes de exportar os seus produtos, "
-            "você deve conhecer o mercado onde deseja atuar.",
-        progress: 0,
-      ),
-      iconBackground: AppColors.blue,
-      icon: Icon(Icons.blur_circular),
-    ),
-    TimelineModel(
-      CardWidget(
-        title: "O Exportador iniciante",
-        description: "Antes de exportar os seus produtos, "
-            "você deve conhecer o mercado onde deseja atuar.",
-        progress: 80,
-      ),
-      iconBackground: Colors.redAccent,
-      icon: Icon(Icons.blur_circular),
-    ),
-    TimelineModel(
-      CardWidget(
-        title: "O Exportador iniciante",
-        description: "Antes de exportar os seus produtos, "
-            "você deve conhecer o mercado onde deseja atuar.",
-        progress: 0,
-      ),
-      iconBackground: AppColors.blue,
-      icon: Icon(Icons.blur_circular),
-    ),
-    TimelineModel(
-      CardWidget(
-        title: "O Exportador iniciante",
-        description: "Antes de exportar os seus produtos, "
-            "você deve conhecer o mercado onde deseja atuar.",
-        progress: 0,
-      ),
-      iconBackground: AppColors.blue,
-      icon: Icon(Icons.blur_circular),
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundScreen,
+      backgroundColor: AppColors.grey10,
       bottomNavigationBar: SizedBox(
-        height: 70,
         child: BottomNavigationBar(
           backgroundColor: Colors.white,
-          iconSize: 30,
           items: [
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
@@ -104,8 +40,9 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Container(
-        height: 80,
-        width: 80,
+        margin: EdgeInsets.only(top: 45),
+        height: 64,
+        width: 64,
         child: FloatingActionButton(
           backgroundColor: AppColors.green,
           elevation: 0,
@@ -118,9 +55,30 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             _buildHead(),
             Expanded(
-              child: Timeline(
-                children: items,
-                position: TimelinePosition.Left,
+              child: TimelineWidget(
+                physics: AlwaysScrollableScrollPhysics(
+                  parent: BouncingScrollPhysics(),
+                ),
+                children: [
+                  CardWidget(
+                    title: "O Exportador iniciante",
+                    description: "Antes de exportar os seus produtos, "
+                        "você deve conhecer o mercado onde deseja atuar.",
+                    progress: 80,
+                  ),
+                  CardWidget(
+                    title: "O Exportador iniciante",
+                    description: "Antes de exportar os seus produtos, "
+                        "você deve conhecer o mercado onde deseja atuar.",
+                    progress: 0,
+                  ),
+                  CardWidget(
+                    title: "O Exportador iniciante",
+                    description: "Antes de exportar os seus produtos, "
+                        "você deve conhecer o mercado onde deseja atuar.",
+                    progress: 30,
+                  ),
+                ],
               ),
             ),
           ],
