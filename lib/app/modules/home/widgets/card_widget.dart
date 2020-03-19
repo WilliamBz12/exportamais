@@ -1,18 +1,14 @@
+import 'package:exportamais/app/models/lesson_model.dart';
+import 'package:exportamais/app/modules/home/widgets/progress_bar_widget.dart';
 import 'package:exportamais/app/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../../shared/themes/app_colors.dart';
 
 class CardWidget extends StatelessWidget {
-  final String title, description;
-  final double progress;
+  final LessonModel lesson;
 
-  CardWidget({
-    this.title,
-    this.description,
-    this.progress,
-  });
+  CardWidget({this.lesson});
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +31,13 @@ class CardWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _buildProgressIndicator(),
+          ProgressBarWidget(
+            all: lesson.allLesson,
+            part: lesson.finishedLesson,
+          ),
           SizedBox(height: 15),
           Text(
-            "$title",
+            "${lesson.title}",
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w500,
@@ -47,7 +46,7 @@ class CardWidget extends StatelessWidget {
           ),
           SizedBox(height: 8),
           Text(
-            "$description",
+            "${lesson.description}",
             style: TextStyle(
               fontSize: 12,
               color: AppColors.grey80,
@@ -57,31 +56,6 @@ class CardWidget extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildProgressIndicator() {
-    return Row(
-      children: <Widget>[
-        Text(
-          "${progress.round()}%",
-          style: TextStyle(
-            color: AppColors.green,
-            fontStyle: FontStyle.normal,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        LinearPercentIndicator(
-          animation: true,
-          lineHeight: 4,
-          animationDuration: 2500,
-          width: 100, 
-          percent: progress / 100,
-          linearStrokeCap: LinearStrokeCap.roundAll,
-          backgroundColor: AppColors.background,
-          progressColor: AppColors.green,
-        ),
-      ],
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:exportamais/app/models/lesson_model.dart';
 import 'package:exportamais/app/modules/home/widgets/timeline_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,6 +17,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<LessonModel> lessons = [
+    LessonModel(
+      allLesson: 5,
+      finishedLesson: 2,
+      description: "Antes de exportar os seus produtos, "
+          "você deve conhecer o mercado onde deseja atuar.",
+      image: "https://lh3.googleusercontent.com/proxy/"
+          "fWP5aGnGqQh1GPfOdfslyG8LehyA6VjidMuJVEF2bgJdmZdxpnNd-"
+          "ML6REdZFSSbjGlRVjtPtBtKH4Pc_H_Bn9Y_9zC9z298EYV37QfQXry"
+          "doxu-hKMEyQP0jt0_5RR7qjo9",
+      title: "O exportador iniciante",
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +38,8 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: SizedBox(
         child: BottomNavigationBar(
           backgroundColor: Colors.white,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
           items: [
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
@@ -60,24 +76,12 @@ class _HomePageState extends State<HomePage> {
                   parent: BouncingScrollPhysics(),
                 ),
                 children: [
-                  CardWidget(
-                    title: "O Exportador iniciante",
-                    description: "Antes de exportar os seus produtos, "
-                        "você deve conhecer o mercado onde deseja atuar.",
-                    progress: 80,
+                  InkWell(
+                    child: CardWidget(lesson: lessons[0]),
+                    onTap: () => Navigator.pushNamed(context, "/course",
+                        arguments: lessons[0]),
                   ),
-                  CardWidget(
-                    title: "O Exportador iniciante",
-                    description: "Antes de exportar os seus produtos, "
-                        "você deve conhecer o mercado onde deseja atuar.",
-                    progress: 0,
-                  ),
-                  CardWidget(
-                    title: "O Exportador iniciante",
-                    description: "Antes de exportar os seus produtos, "
-                        "você deve conhecer o mercado onde deseja atuar.",
-                    progress: 30,
-                  ),
+                  CardWidget(lesson: lessons[0]),
                 ],
               ),
             ),
