@@ -1,4 +1,5 @@
 import 'package:exportamais/app/app_bloc.dart';
+import 'package:exportamais/app/modules/home/screens/lesson/lesson_screen.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
 import 'package:exportamais/app/app_widget.dart';
@@ -13,6 +14,7 @@ class AppModule extends MainModule {
   @override
   List<Router> get routers => [
         Router('/', module: HomeModule()),
+        Router('/lesson', child: (_, args) => LessonScreen()),
       ];
 
   @override

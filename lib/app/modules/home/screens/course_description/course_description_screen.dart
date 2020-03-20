@@ -2,6 +2,7 @@ import 'package:exportamais/app/models/lesson_model.dart';
 import 'package:exportamais/app/modules/home/screens/course_description/widgets/head_widget.dart';
 import 'package:exportamais/app/modules/home/screens/course_description/widgets/item_list_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class CourseDescriptionScreen extends StatefulWidget {
   final LessonModel lesson;
@@ -33,14 +34,23 @@ class _CourseDescriptionScreenState extends State<CourseDescriptionScreen> {
       child: Column(
         children: <Widget>[
           ItemListWidget(
+            onTap: () {
+              Modular.to.pushNamed('/lesson');
+            },
             state: true,
             title: "Conhecendo o mercado",
           ),
           ItemListWidget(
+            onTap: () {
+              Modular.to.pushNamed('/lesson');
+            },
             state: true,
             title: "Conhecendo o mercado",
           ),
           ItemListWidget(
+            onTap: () {
+              Modular.to.pushNamed('/lesson');
+            },
             state: false,
             title: "Conhecendo o mercado",
           )

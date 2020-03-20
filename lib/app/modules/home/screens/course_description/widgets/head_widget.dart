@@ -2,6 +2,7 @@ import 'package:exportamais/app/models/lesson_model.dart';
 import 'package:exportamais/app/modules/home/widgets/progress_bar_widget.dart';
 import 'package:exportamais/app/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class HeadWidget extends StatefulWidget {
   final LessonModel lessonModel;
@@ -15,15 +16,50 @@ class _HeadWidgetState extends State<HeadWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            offset: Offset(0, 4),
+            blurRadius: 24,
+            spreadRadius: 0,
+            color: Color.fromRGBO(34, 38, 36, 0.08),
+          ),
+        ],
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(8),
+          bottomRight: Radius.circular(8),
+        ),
+      ),
       child: Column(
         children: <Widget>[
           Container(
             height: 200,
             width: double.infinity,
-            child: Image.network(
-              widget.lessonModel.image,
-              fit: BoxFit.fill,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(widget.lessonModel.image),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: SafeArea(
+              bottom: false,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).maybePop();
+                    },
+                    child: Container(
+                      width: 32,
+                      height: 32,
+                      margin: EdgeInsets.only(top: 20, left: 16),
+                      child: SvgPicture.asset('assets/images/chevron-left.svg'),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           SizedBox(height: 25),

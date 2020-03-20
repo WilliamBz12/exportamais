@@ -1,12 +1,11 @@
-import 'dart:ui';
-
-import 'package:exportamais/app/models/lesson_model.dart';
-import 'package:exportamais/app/modules/home/widgets/timeline_widget.dart';
+import 'package:exportamais/app/modules/home/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../models/lesson_model.dart';
 import '../../shared/themes/app_colors.dart';
-import 'widgets/card_widget.dart';
+import 'screens/courses_timeline/courses_timeline_module.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -23,16 +22,28 @@ class _HomePageState extends State<HomePage> {
       finishedLesson: 2,
       description: "Antes de exportar os seus produtos, "
           "você deve conhecer o mercado onde deseja atuar.",
-      image: "https://lh3.googleusercontent.com/proxy/"
-          "fWP5aGnGqQh1GPfOdfslyG8LehyA6VjidMuJVEF2bgJdmZdxpnNd-"
-          "ML6REdZFSSbjGlRVjtPtBtKH4Pc_H_Bn9Y_9zC9z298EYV37QfQXry"
-          "doxu-hKMEyQP0jt0_5RR7qjo9",
+      image: "assets/wallpaper.png",
       title: "O exportador iniciante",
     ),
   ];
 
+  bool busy = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _firstLoad();
+  }
+
+  void _firstLoad() async {
+    await Future.delayed(Duration(seconds: 2));
+    setState(() => busy = false);
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (busy) return SplashScreen();
+    
     return Scaffold(
       backgroundColor: AppColors.grey10,
       bottomNavigationBar: SizedBox(
@@ -66,55 +77,9 @@ class _HomePageState extends State<HomePage> {
           onPressed: () {},
         ),
       ),
-      body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            _buildHead(),
-            Expanded(
-              child: TimelineWidget(
-                physics: AlwaysScrollableScrollPhysics(
-                  parent: BouncingScrollPhysics(),
-                ),
-                children: [
-                  InkWell(
-                    child: CardWidget(lesson: lessons[0]),
-                    onTap: () => Navigator.pushNamed(context, "/course",
-                        arguments: lessons[0]),
-                  ),
-                  CardWidget(lesson: lessons[0]),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildHead() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 40),
-      child: Column(
+      body: PageView(
         children: <Widget>[
-          Text(
-            "O caminho da exportação",
-            style: TextStyle(
-              color: AppColors.grey90,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 10),
-          Text(
-            "Vamos ajudar a sua empresa a exportar\nde forma correta e simplificada.",
-            style: TextStyle(
-              color: AppColors.grey60,
-              fontSize: 16,
-              fontWeight: FontWeight.normal,
-              fontStyle: FontStyle.normal,
-            ),
-            textAlign: TextAlign.center,
-          ),
+          RouterOutlet(module: CoursesTimelineModule()),
         ],
       ),
     );
